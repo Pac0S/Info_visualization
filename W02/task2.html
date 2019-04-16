@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title>Task 2</title>
+	</head>
+	<body>
+		<script src="vec3.js"></script>
+		<script>
+			var x0=5, y0=6, z0=4; // (input vertex 0)
+			var x1=2, y1=10, z1=7; // (input vertex 1)
+			var x2=4, y2=6, z2=1; // (input vertex 2)
+			var v00 = new Vec3( x0, y0, z0 );
+			var v01 = new Vec3( x1, y1, z1 );
+			var v02 = new Vec3( x2, y2, z2 );
+			var S = AreaOfTriangle( v00, v01, v02 );
+			document.write("Area of triangle : " + S);
+		</script>
+	</body>
+</html>

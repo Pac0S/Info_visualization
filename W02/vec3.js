@@ -5,8 +5,6 @@ Vec3 = function(x, y, z,){
 	this.z = z;
 }
 
-
-
 //Add method
 Vec3.prototype.add = function(v){
 	this.x += v.x;
