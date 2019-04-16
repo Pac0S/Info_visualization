@@ -9,14 +9,24 @@
 			var v2 = new Vec3(2,1,7);
 			var v = v1.add(v2); //v = (7,5,15)
 			var sum = v.sum(); // 27 = 7+5+15
-			//document.write(sum);
+			document.write("Sum : " + sum+"<br>");
 			
 			var x = 5, y=4, z=8;
 			var v = new Vec3(x, y, z);
 			var mini = v.mini();
 			var mid = v.mid();
 			var maxi = v.maxi();
-			document.write("minimum value : " +mini + "<br>maximum value : " + maxi + "<br>middle value : " + mid)
+			document.write("minimum value : " +mini + "<br>maximum value : " + maxi + "<br>middle value : " + mid+"<br>")
+			
+			
+			var x0=5, y0=6, z0=4; // (input vertex 0)
+			var x1=2, y1=10, z1=7; // (input vertex 1)
+			var x2=4, y2=6, z2=1; // (input vertex 2)
+			var v00 = new Vec3( x0, y0, z0 );
+			var v01 = new Vec3( x1, y1, z1 );
+			var v02 = new Vec3( x2, y2, z2 );
+			var S = AreaOfTriangle( v00, v01, v02 );
+			document.write("Area of triangle : " + S);
 		</script>
 	</body>
 </html>
