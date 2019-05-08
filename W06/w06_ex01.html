@@ -1,0 +1,131 @@
+<html>
+    <head>
+	<title>W06: Example 01</title>
+    </head>
+    <body>
+	<script src="https://threejs.org/build/three.min.js"></script>
+	<script src="main01.js"></script>
+	
+<!--    Vertex Shader-->
+        
+    <script type = "x-shader/x-vertex" id = "shader.vert">
+    void main(){
+        gl_position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+    </script>
+
+        
+<!--    Fragment shader -->
+    <script type = "x-shader/x-fragment" id = "shader.frag">
+    void main(){
+        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+    }
+    </script>
+        
+        
+<!--    Gouraud Vertex shader Lambertian Reflexion-->
+    <script type="x-shader/x-vertex" id="gouraudL.vert">
+    varying vec3 point_color;
+    varying vec4 point_position;
+    varying vec3 normal_vector;
+    uniform vec3 light_position;
+
+    vec3 LambertianReflection( vec3 C, vec3 L, vec3 N )
+    {
+        float ka = 0.4;
+        float kd = 0.6;
+        float dd = max( dot( N, L ), 0.0 );
+        float Ia = ka;
+        float Id = kd * dd;
+        return C * ( Ia + Id );
+    }
+    
+
+
+    void main()
+    {
+        point_position = modelViewMatrix * vec4( position, 1.0 );
+        normal_vector = normalMatrix * normal;
+        vec3 C = color;
+        vec3 L = normalize( light_position - point_position.xyz );
+        vec3 N = normalize( normal_vector );
+        point_color = LambertianReflection( C, L, N );
+        gl_Position = projectionMatrix * point_position;
+    }
+    </script>
+        
+<!--    Gouraud Vertex shader Phong Reflexion-->
+<!--        Not working-->
+    <script type="x-shader/x-vertex" id="gouraudP.vert">
+    varying vec3 point_color;
+    varying vec4 point_position;
+    varying vec3 normal_vector;
+    uniform vec3 light_position;
+
+    vec3 PhongReflection( vec3 C, vec3 L, vec3 N )
+    {
+        float ka = 0.3;
+        float kd = 0.5;
+        float ks = 0.8;
+        float n = 50.0;
+        vec3 R = reflect( -L, N );
+        float dd = max( dot( N, L ), 0.0 );
+        float ds = pow( max( dot( R, V ), 0.0 ), n );
+        if ( dd <= 0.0 ) { ds = 0.0; }
+        float Ia = ka;
+        float Id = kd * dd;
+        float Is = ks * ds;
+        return C * ( Ia + Id + Is );
+    }
+    
+
+
+    void main()
+    {
+        point_position = modelViewMatrix * vec4( position, 1.0 );
+        normal_vector = normalMatrix * normal;
+        vec3 C = color;
+        vec3 L = normalize( light_position - point_position.xyz );
+        vec3 N = normalize( normal_vector );
+        point_color = LambertianReflection( C, L, N );
+        gl_Position = projectionMatrix * point_position;
+    }
+    </script>
+    
+<!--    Gouraud Fragment shader-->
+
+    <script type="x-shader/x-fragment" id="gouraud.frag">
+    varying vec3 point_color;
+    void main()
+    {
+        gl_FragColor = vec4( point_color, 1.0 );
+    }
+    </script>
+        
+    Not working
+    <script id="Blinn-Phong" type="x-shader/x-vertex">
+    attribute vec3 vPosition;
+    attribute vec3 vNormal;
+    uniform mat4 mat;
+    varying vec3 norm;
+    varying vec3 pos;
+    varying vec3 eye;
+    void main()
+    {
+        norm = mat3(mat) * vNormal;
+        eye = vec3(0, 0, 1) - (mat * vec4(vPosition, 1.0)).xyz;
+        // Ugly: Give us a right-handed coordinate system where the viewer
+        // is at (0, 0, 1) and is looking in the direction (0, 0, -1).
+        gl_Position = mat * vec4(vPosition, 1.0) * vec4(1.0, 1.0, -1.0, 1.0);
+        }
+    </script>
+        
+        
+<!--    Main-->
+    <script>
+	 main();
+	</script>
+        
+    
+    </body>
+</html>
