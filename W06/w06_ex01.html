@@ -39,8 +39,6 @@
         float Id = kd * dd;
         return C * ( Ia + Id );
     }
-    
-
 
     void main()
     {
@@ -87,7 +85,7 @@
         vec3 C = color;
         vec3 L = normalize( light_position - point_position.xyz );
         vec3 N = normalize( normal_vector );
-        point_color = LambertianReflection( C, L, N );
+        point_color = PhongReflection( C, L, N );
         gl_Position = projectionMatrix * point_position;
     }
     </script>
@@ -102,7 +100,9 @@
     }
     </script>
         
-    Not working
+        
+<!--    Blinn-Phong Reflexion-->
+<!--    Not working-->
     <script id="Blinn-Phong" type="x-shader/x-vertex">
     attribute vec3 vPosition;
     attribute vec3 vNormal;
