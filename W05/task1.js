@@ -13,7 +13,7 @@ function main()
     var far = 1000;
     var camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
     camera.position.set( 5, 5, 5 );
-    scene.add( camera );
+    scene.add( camera );//
 
     
     //light
