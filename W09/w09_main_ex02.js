@@ -12,11 +12,8 @@ function main()
     var bounds = Bounds( volume );
     screen.scene.add( bounds );
 
-    var isovalue = 128;
-    var col1 = 1;
-    var col2 = 255;
-    var col3 = 128;
-    var surfaces = Isosurfaces( volume, isovalue, col1, col2, col3 );
+    var isovalue = 230;
+    var surfaces = Isosurfaces( volume, isovalue);
     screen.scene.add( surfaces );
 
     document.addEventListener( 'mousemove', function() {
