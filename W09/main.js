@@ -14,19 +14,41 @@ function main()
 
     var bounds = Bounds( volume );
     screen.scene.add( bounds );
-
+    
+    var cmap = 1;
     //var isovalue = 230;
     var isovalue = document.getElementById("isovalue").value;
-    var surfaces = Isosurfaces( volume, isovalue);
+    var surfaces = Isosurfaces( volume, isovalue, cmap);
     screen.scene.add( surfaces );
     
     
     document.getElementById('change-isovalue-button').addEventListener('click', function () {
         screen.scene.remove(surfaces);
         isovalue = document.getElementById("isovalue").value;
-        surfaces = Isosurfaces( volume, isovalue);
+        surfaces = Isosurfaces( volume, isovalue, cmap);
         screen.scene.add(surfaces);
     });
+    
+    
+    
+    
+    document.getElementById('map1-button').addEventListener('click', function () {
+        cmap = 1;
+        screen.scene.remove(surfaces);
+        isovalue = document.getElementById("isovalue").value;
+        surfaces = Isosurfaces( volume, isovalue, cmap);
+        screen.scene.add(surfaces);
+    });
+    
+    document.getElementById('map2-button').addEventListener('click', function () {
+        cmap = 2;
+        screen.scene.remove(surfaces);
+        isovalue = document.getElementById("isovalue").value;
+        surfaces = Isosurfaces( volume, isovalue, cmap);
+        screen.scene.add(surfaces);
+    });
+
+
 
     document.addEventListener( 'mousemove', function() {
         screen.light.position.copy( screen.camera.position );
@@ -34,6 +56,12 @@ function main()
 
     window.addEventListener( 'resize', function() {
         screen.resize( [ window.innerWidth, window.innerHeight ] );
+    });
+    
+    var material = new THREE.ShaderMaterial({
+        vertexColors: THREE.VertexColors,
+        vertexShader: document.getElementById('phong.vert').text,
+        fragmentShader: document.getElementById('phong.frag').text,
     });
 
     screen.loop();

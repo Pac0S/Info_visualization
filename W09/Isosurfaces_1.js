@@ -1,4 +1,4 @@
-function Isosurfaces( volume, isovalue)
+function Isosurfaces( volume, isovalue, map)
 {
     var geometry = new THREE.Geometry();
     var material = new THREE.MeshLambertMaterial();
@@ -10,15 +10,30 @@ function Isosurfaces( volume, isovalue)
     isovalue = KVS.Clamp( isovalue, smin, smax );
 
      // Create color map
-    var cmap = [];
-    for ( var i = 0; i < 256; i++ )
-    {
-        var S = i / 255.0; // [0,1]
-        var R = Math.max( Math.cos( ( S - 1.0 ) * Math.PI ), 0.0 );
-        var G = Math.max( Math.cos( ( S - 0.5 ) * Math.PI ), 0.0 );
-        var B = Math.max( Math.cos( S * Math.PI ), 0.0 );
-        var color = new THREE.Color( R, G, B );
-        cmap.push( [ S, '0x' + color.getHexString() ] );
+    if(map==1){
+        var cmap = [];
+        for ( var i = 0; i < 256; i++ )
+        {
+            var S = i / 255.0; // [0,1]
+            var R = Math.max( Math.cos( ( S - 1.0 ) * Math.PI ), 0.0 );
+            var G = Math.max( Math.cos( ( S - 0.5 ) * Math.PI ), 0.0 );
+            var B = Math.max( Math.cos( S * Math.PI ), 0.0 );
+            var color = new THREE.Color( R, G, B );
+            cmap.push( [ S, '0x' + color.getHexString() ] );
+        }
+        
+    } else{
+        var cmap = [];
+            for ( var i = 0; i <= 255; i++ )
+            {
+                var S = i / 255; // [0.1,0.8]
+                console.log(S);
+                var R = 1;
+                var G = Math.max( Math.cos( ( S / 2.0 ) * Math.PI ), 0.0 );
+                var B = Math.max( Math.cos( ( S / 2.0 ) * Math.PI ), 0.0 );
+                var color = new THREE.Color( R, G, B );
+                cmap.push( [ S, '0x' + color.getHexString() ] );
+            }
     }
     
     material.vertexColors = THREE.VertexColors;
@@ -141,6 +156,11 @@ function Isosurfaces( volume, isovalue)
 
     function interpolated_vertex( v0, v1, s )
     {
-        return new THREE.Vector3().addVectors( v0, v1 ).divideScalar( 2 );
+        //return new THREE.Vector3().addVectors( v0, v1 ).divideScalar( 2 )
+        var index = [ (v0.z * volume.resolution.x * volume.resolution.y + v0.y * volume.resolution.x + v0.x),
+                     (v1.z * volume.resolution.x * volume.resolution.y + v1.y * volume.resolution.x + v1.x) ];
+        var t = (s - volume.values[ index[0] ][0]) /
+        (volume.values[ index[1] ][0] - volume.values[ index[0] ][0]);
+        return new THREE.Vector3().addVectors( v0.multiplyScalar(1-t), v1.multiplyScalar(t));
     }
 }
