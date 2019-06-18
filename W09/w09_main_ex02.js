@@ -1,7 +1,7 @@
 function main()
 {
     var volume = new KVS.LobsterData();
-    //KVS.CreateTornadoData(100,100,100)
+    //var volume = new KVS.TornadoData(50,20,30);
     var screen = new KVS.THREEScreen();
 
     screen.init( volume, {
@@ -21,7 +21,7 @@ function main()
     screen.scene.add( surfaces );
     
     
-    document.getElementById('isovalue').addEventListener('mousemove', function () {
+    document.getElementById('change-isovalue-button').addEventListener('click', function () {
         screen.scene.remove(surfaces);
         isovalue = document.getElementById("isovalue").value;
         surfaces = Isosurfaces( volume, isovalue);
