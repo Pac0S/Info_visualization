@@ -1,0 +1,60 @@
+<html>
+    <head>
+	<title>Final Report Information Visualization</title>
+    </head>
+    
+    <h1>Information Visualization</h1>
+    
+    <h2>Overview</h2>
+    
+    <ul>
+    The representation of informations include many different techniques. The ones we are studying are concentrated on data vizualisation with 2D or 3D images. The techniques used here are pretty different and could be combined to get even more explicit results.
+    </ul>
+    
+    <h2>Data visualization</h2>
+    
+    <ul>
+    <h3>Shading</h3>
+    <p>By clicking on the first link, we can see different represention of a knot. Their volume data are identical, but the shading and reflection are quite different. In fact the visual representation of colors is often separated into these two principal elements. 
+    The reflection is composed of 3 elements : the ambient reflectioon, the specular reflection and the diffuse reflexion. These 3 can be combined in different ways to create reflexion models. Among them we represented the Lambert, Phong, Blinn-Phong, Cook-Torrance and Toon Reflection models.</p>
+    <p>
+    The shader is the process based on the reflection models that determines the color of a pixel. We represented here 2 different shading models for each reflection model : Phong and Gouraud.
+    </p>
+    <p>
+    We see very vell the difference between the different combinations although it is sometimes quite difficult to tell. We undurstand, by seing the knots moving that the lights are not reflected the same way, giving at final a more or less bright object, and other proper characteristics.
+    </p>
+      		<li><a href="shading.html">Knot and shaders</a></li>
+        
+    
+    <h3>Cmap ans isovalue</h3>    
+    <p>The second link illustrates different aspects of information visualization. First, we can see that there are different cmaps proposed. These cmaps are based on transfert function that allow to atribute a color to a point followong a data value. </p>
+        
+    <p>In this case, the color of the points represented is given by their scalar value. The points belonging to an isosurface with a given isovalue are drawn in a corresponding color. We see in that case that the higher the isovalue is, the more "sensitive" the representation is. When the isovalue is low, the points of the lobster that are represented are the ones that represent it better, whil we can see noise appearing for higher isovalues.</p>
+        
+    <p>
+    A third aspect is represented there. It is the interpolation of scalar data. As we say before, each data point has a scalar value int this type of data (other data can be vertorial for example). The representation of data is made of polygons, which means along these polygons, except at their corners, there is no scalar value. The interpolation allows to give an answer to this problem, by making a linear interpolation between the values surrounding a given point. This process is not formally precise, because it is an approximation of scalar values around the data, but it allows to have a better representation than whithout it. In our case for example, the isosurfaces are very smoothen because more points have the same isovalue.
+    </p>
+        
+
+      		<li><a href="w09_task1.html">Lobster, cmaps and Isovalue</a></li>
+      
+    
+    <h3>Slice extraction</h3>
+    <p>This process is very interesting, as it allows to represent a slice of our data with the observed characteristic. In our case, the isovalue is observed. This representation mixes the different processes explained before, as it uses a colormap and interpolation to represent data with their scalar value. </p>
+        
+        
+            <li><a href="w09_task4.html">Lobster, slice extraction</a></li>
+        
+    <p>Line Integral Convolution (LIC) is an interesting tool to represent vector fields. In many cases these are flow data such as winds or currents. To use LIC, a vectorial data is required. </p>
+    <p>Of course, different kinds of LIC exist, because the needs can be different. There are gray-scale LIC, or colored LIC, using again color maps, 2D or 3D LIC, or ones playing with contrast.It is also interesting to make the density of lines vary in order to see the details of the represented model. The user of LIC should also decide if the representation of vectors sould be oriented (arrows) or not.</p>
+        
+    <p>Here, we used the Tornado data to illustrate this method. However because of a documentation on KVS difficult to find, we are limited to a 3D representation of a colored tornado. In this case, the model in not oriented. It seems to appear that the winds are quite weak (blue) in the center and far away from the tornado, while they are stronger at a mid-range distance from the center. Thus, this kind of representation is very usefull in meteorology, or fluid mechanics.</p>
+
+        
+      		<li><a href="w11_ex01.html">Tornado and LIC</a></li>
+    </ul>
+    
+
+    
+
+</html>
